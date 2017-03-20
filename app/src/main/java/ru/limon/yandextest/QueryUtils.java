@@ -14,8 +14,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by User on 3/16/2017.
@@ -28,7 +26,8 @@ public final class QueryUtils {
     public QueryUtils() {
     }
 
-    public List<Translation> fetchTranslationData(String requestUrl) {
+    public static Translation fetchTranslationData(String requestUrl) {
+        Log.i(LOG_TAG, "Translation constructor called");
         URL url = createUrl(requestUrl);
 
         String jsonResponse = null;
@@ -39,12 +38,10 @@ public final class QueryUtils {
             Log.e(LOG_TAG, "Problem making Http request.", e);
         }
 
-        List<Translation> translation = extractFromJson(jsonResponse);
-
-        return translation;
+        return extractFromJson(jsonResponse);
     }
 
-    private URL createUrl(String requestUrl) {
+    private static URL createUrl(String requestUrl) {
         URL url = null;
 
         try {
@@ -52,11 +49,12 @@ public final class QueryUtils {
         } catch (MalformedURLException e) {
             Log.e(LOG_TAG, "Cannot create url ", e);
         }
+        Log.i(LOG_TAG, "Url created. " + url.toString());
 
         return url;
     }
 
-    private String makeHttpRequest(URL url) throws IOException {
+    private static String makeHttpRequest(URL url) throws IOException {
 
         String jsonResponse = "";
 
@@ -93,10 +91,12 @@ public final class QueryUtils {
             }
         }
 
+        Log.i(LOG_TAG, "Json response received. " + jsonResponse);
+
         return jsonResponse;
     }
 
-    private String readFromStream(InputStream inputStream) throws IOException {
+    private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder output = new StringBuilder();
 
         if (inputStream != null) {
@@ -111,22 +111,29 @@ public final class QueryUtils {
         return output.toString();
     }
 
-    private List<Translation> extractFromJson(String jsonResponse) {
+    private static Translation extractFromJson(String jsonResponse) {
 
         if (TextUtils.isEmpty(jsonResponse)) {
             return null;
         }
 
-        List<Translation> translation = new ArrayList<>();
+        Translation translation = null;
 
         try {
-            JSONObject rootJson = new JSONObject();
+            JSONObject rootJson = new JSONObject(jsonResponse);
 
             int responseCode = rootJson.getInt("code");
+            String lang = rootJson.getString("lang");
+            String translatedText = rootJson.getJSONArray("text").getString(0);
 
+            translation = new Translation(lang, translatedText, responseCode);
+
+            Log.i(LOG_TAG, "Translation data: " + translation.getText());
+            Log.i(LOG_TAG, translation.getLang());
+            Log.i(LOG_TAG, String.valueOf(translation.getResponseCode()));
 
         } catch (JSONException e) {
-
+            Log.e(LOG_TAG, "Problem with extracting JSON response ", e);
         }
 
         return translation;

@@ -6,15 +6,13 @@ package ru.limon.yandextest;
 
 public class Translation {
 
-    String mInitialText;
-    String mLang;
-    String[] mText;
-    int mResponseCode;
+    private String mLang;
+    private String mTranslatedText;
+    private int mResponseCode;
 
-    public Translation(String initialText, String lang, String[] text, int responseCode) {
-        mInitialText = initialText;
+    public Translation(String lang, String text, int responseCode) {
         mLang = lang;
-        mText = text;
+        mTranslatedText = text;
         mResponseCode = responseCode;
     }
 
@@ -22,15 +20,11 @@ public class Translation {
         return mResponseCode;
     }
 
-    public String getInitialText() {
-        return mInitialText;
-    }
-
     public String getLang() {
         return mLang;
     }
 
-    public String[] getText() {
-        return mText;
+    public String getText() {
+        return mTranslatedText;
     }
 }

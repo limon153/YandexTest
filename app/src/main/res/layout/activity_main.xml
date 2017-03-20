@@ -22,7 +22,7 @@
             android:background="@drawable/border">
 
             <EditText
-                android:id="@+id/main_text_input"
+                android:id="@+id/text_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
@@ -51,6 +51,7 @@
                 app:srcCompat="@drawable/ic_home_black_24dp" />
 
             <ImageView
+                android:id="@+id/btn"
                 android:layout_width="@dimen/btn_size"
                 android:layout_height="@dimen/btn_size"
                 android:layout_alignParentBottom="true"
@@ -72,13 +73,19 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/translated_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="22sp"
                     tools:text="Hi" />
 
                 <TextView
+                    android:id="@+id/initial_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
                     tools:text="Привет" />
 
                 <ListView
