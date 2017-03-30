@@ -19,6 +19,9 @@ import java.nio.charset.Charset;
  * Created by User on 3/16/2017.
  */
 
+/**
+ * Helper class for Translation via Yandex.translate API
+ */
 public final class QueryUtils {
 
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
@@ -26,6 +29,12 @@ public final class QueryUtils {
     public QueryUtils() {
     }
 
+    /**
+     * Translates text given in Url with Yandex.translate API and making Translation object
+     *
+     * @param requestUrl Yandex.translate API query to translate text
+     * @return Translation object that contains translation data
+     */
     public static Translation fetchTranslationData(String requestUrl) {
         Log.i(LOG_TAG, "Translation constructor called");
         URL url = createUrl(requestUrl);
@@ -41,6 +50,12 @@ public final class QueryUtils {
         return extractFromJson(jsonResponse);
     }
 
+    /**
+     * Creates URL object from String
+     *
+     * @param requestUrl Url in String type
+     * @return URL object
+     */
     private static URL createUrl(String requestUrl) {
         URL url = null;
 
@@ -54,6 +69,13 @@ public final class QueryUtils {
         return url;
     }
 
+    /**
+     * Makes HTTP request, receive input stream and making json string from it
+     *
+     * @param url URL object
+     * @return jsonResponse String with text in JSON format
+     * @throws IOException
+     */
     private static String makeHttpRequest(URL url) throws IOException {
 
         String jsonResponse = "";
@@ -96,6 +118,13 @@ public final class QueryUtils {
         return jsonResponse;
     }
 
+    /**
+     * Reads from input stream and make String
+     *
+     * @param inputStream
+     * @return String which contains JSON data
+     * @throws IOException
+     */
     private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder output = new StringBuilder();
 
@@ -111,6 +140,12 @@ public final class QueryUtils {
         return output.toString();
     }
 
+    /**
+     * Extract data from JSON format String and make Translation object
+     *
+     * @param jsonResponse
+     * @return Translation object
+     */
     private static Translation extractFromJson(String jsonResponse) {
 
         if (TextUtils.isEmpty(jsonResponse)) {
