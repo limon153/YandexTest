@@ -12,8 +12,8 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Action bar buttons listeners
         TextView leftLanguageSelectTextView = (TextView) findViewById(R.id.baldezh);
-        Button changeLanguageBtn = (Button) findViewById(R.id.knopka);
-        TextView rightLanguageSelectTExtView = (TextView) findViewById(R.id.bertie);
+        ImageView changeLanguageBtn = (ImageView) findViewById(R.id.knopka);
+        TextView rightLanguageSelectTextView = (TextView) findViewById(R.id.bertie);
 
         leftLanguageSelectTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        rightLanguageSelectTExtView.setOnClickListener(new View.OnClickListener() {
+        rightLanguageSelectTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Bertie activated", Toast.LENGTH_SHORT).show();
